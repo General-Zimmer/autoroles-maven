@@ -20,6 +20,7 @@ import net.luckperms.api.model.group.Group;
 import xyz.wisecraft.autoroles.Main;
 import xyz.wisecraft.autoroles.data.DataMethods;
 import xyz.wisecraft.autoroles.data.Playerdata;
+import xyz.wisecraft.autoroles.data.Timers;
 
 public class joined extends BukkitRunnable {
 
@@ -70,6 +71,8 @@ public class joined extends BukkitRunnable {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+
+		Main.timers.put(UUID, new Timers(0, 0));
 
 		// Check if the name in the config is the same as the player's current name, if not, correct it. 
 		FileConfiguration config = Playerdata.getConfig(file, uuid); 	

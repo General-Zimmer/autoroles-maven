@@ -1,6 +1,6 @@
 package xyz.wisecraft.autoroles.listeners;
 
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
@@ -23,8 +23,8 @@ import xyz.wisecraft.autoroles.data.Timers;
 
 public class QuestEvents implements Listener {
 
-	private Main plugin = Main.getPlugin(Main.class);
-	private ConcurrentHashMap<UUID, Timers> timers = Main.timers;
+	private final Main plugin = Main.getPlugin(Main.class);
+	private final ConcurrentHashMap<UUID, Timers> timers = Main.timers;
 	
 	@EventHandler
 	public void onCommand(PlayerCommandPreprocessEvent e) {
@@ -83,11 +83,41 @@ public class QuestEvents implements Listener {
 		else if (times.getTree() > 0 & e.getDeathMessage().equalsIgnoreCase(p.getName() + " died")) {
 			NamespacedKey key = new NamespacedKey(plugin, "move");
 			Advancement a = Bukkit.getAdvancement(key);
-			AdvancementProgress prog = p.getAdvancementProgress(a); 
+			AdvancementProgress prog = p.getAdvancementProgress(a);
+
+
 			
 			e.setDeathMessage(p.getName() + " was crushed under a tree");
 			if (!prog.isDone())
 			prog.awardCriteria("move");
+		}
+		else {
+			List<Player> players = new ArrayList<>();
+
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				UUID id = player.getUniqueId();
+				if (!p.getUniqueId().toString().equals(id.toString()) && Main.timers.get(id).getTree() > 0) {
+					players.add(player);
+				}
+			}
+			if (players.isEmpty())
+				return;
+
+
+
+				for (Player p1 : players) {
+
+					if ((!e.getDeathMessage().equalsIgnoreCase(p.getName()+" died because of "+p1.getName())
+						&& !e.getDeathMessage().equalsIgnoreCase(p.getName() + " died")))
+						return;
+
+
+					if ((int) p.getLocation().distanceSquared(p1.getLocation()) <= 100) {
+						e.setDeathMessage(p.getName() + " was crushed under a tree because of " + p1.getName());
+						return;
+					}
+				}
+
 		}
 		
 		}
@@ -170,7 +200,7 @@ public class QuestEvents implements Listener {
 			if (!prog2.isDone())
 				prog.awardCriteria("tree5000");
 		}
-		
+
 		if (!timers.containsKey(UUID)) {
 			timers.put(UUID, new Timers(0, 6));
 		}

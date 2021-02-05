@@ -32,7 +32,7 @@ public class Main extends JavaPlugin{
 	
 	// Useful variables, the infop HashMap is current player's data. This is to store the data in RAM
 	public ConcurrentHashMap<UUID, Infop> infom = new ConcurrentHashMap<UUID, Infop>(); 
-	public static ConcurrentHashMap<UUID, Timers> timers = new ConcurrentHashMap<UUID, Timers>(); 
+	public static ConcurrentHashMap<UUID, Timers> timers = new ConcurrentHashMap<UUID, Timers>();
     public ConsoleCommandSender console = getServer().getConsoleSender();
     public static LuckPerms luck;
     public static IEssentials ess;

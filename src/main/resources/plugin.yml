@@ -1,8 +1,9 @@
 name: Autoroles
 author: General_Zimmer
-depend: [Essentials, LuckPerms]
+depend: [Essentials, LuckPerms, GriefPrevention, UltimateTimber, GriefPreventionFlags]
 version: 0.5
 main: xyz.wisecraft.autoroles.Main
+api-version: 1.13
 commands:
   autoroles:
     description: Used to manually save or load data

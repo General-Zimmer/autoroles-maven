@@ -17,6 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import xyz.wisecraft.autoroles.Main;
 import xyz.wisecraft.autoroles.data.DataMethods;
 import xyz.wisecraft.autoroles.data.Playerdata;
+import xyz.wisecraft.autoroles.data.Timers;
 import xyz.wisecraft.autoroles.threads.SavingConfig;
 import xyz.wisecraft.autoroles.threads.joined;
 
@@ -54,6 +55,7 @@ public class ZimListeners implements Listener {
 				Playerdata.set(uuid, file, DataMethods.convert(plugin.infom.get(UUID)));
 				plugin.infom.remove(UUID);
 				new SavingConfig(file).runTaskAsynchronously(plugin);
+				Main.timers.remove(UUID);
 				
 			}
 		}.runTaskAsynchronously(plugin);

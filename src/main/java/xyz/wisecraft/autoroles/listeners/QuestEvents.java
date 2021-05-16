@@ -20,6 +20,7 @@ import com.songoda.ultimatetimber.events.TreeFellEvent;
 import me.ryanhamshire.GPFlags.event.PlayerClaimBorderEvent;
 import xyz.wisecraft.autoroles.Main;
 import xyz.wisecraft.autoroles.data.Timers;
+import xyz.wisecraft.autoroles.util.Methods;
 
 public class QuestEvents implements Listener {
 
@@ -37,7 +38,6 @@ public class QuestEvents implements Listener {
 			NamespacedKey key = new NamespacedKey(plugin, "welcome_wild");
 			Advancement a = Bukkit.getAdvancement(key);
 			AdvancementProgress prog = p.getAdvancementProgress(a);
-			
 			if (!prog.isDone())
 				prog.awardCriteria("tpr");
 			
@@ -48,8 +48,6 @@ public class QuestEvents implements Listener {
 			NamespacedKey key = new NamespacedKey(plugin, "spawn");
 			Advancement a = Bukkit.getAdvancement(key);
 			AdvancementProgress prog = p.getAdvancementProgress(a);
-					
-					
 				if (!prog.isDone())
 					prog.awardCriteria("spawn");
 		}
@@ -68,7 +66,6 @@ public class QuestEvents implements Listener {
 			e.setDeathMessage(p.getName() + " didn't have flight");
 			if (!prog.isDone())
 			prog.awardCriteria("deadfall");
-			return;
 		}
 		else if (e.getDeathMessage().equalsIgnoreCase(p.getName() + " experienced kinetic energy") ) {
 			NamespacedKey key = new NamespacedKey(plugin, "accident_flying");
@@ -78,7 +75,6 @@ public class QuestEvents implements Listener {
 			
 			if (!prog.isDone())
 			prog.awardCriteria("wall");
-			return;
 		}
 		else if (times.getTree() > 0 & e.getDeathMessage().equalsIgnoreCase(p.getName() + " died")) {
 			NamespacedKey key = new NamespacedKey(plugin, "move");
@@ -177,7 +173,7 @@ public class QuestEvents implements Listener {
 
 		NamespacedKey key = new NamespacedKey(plugin, "timber");
 		Advancement a = Bukkit.getAdvancement(key);
-		AdvancementProgress prog = p.getAdvancementProgress(a); 
+		AdvancementProgress prog = p.getAdvancementProgress(a);
 		if (!prog.isDone())
 			prog.awardCriteria("tree");
 		
@@ -188,6 +184,7 @@ public class QuestEvents implements Listener {
 		if (trees+1 > 999) {
 			NamespacedKey key2 = new NamespacedKey(plugin, "lumberjack");
 			Advancement a2 = Bukkit.getAdvancement(key2);
+			Methods.isProgNull(a2);
 			AdvancementProgress prog2 = p.getAdvancementProgress(a2); 
 			if (!prog2.isDone())
 				prog.awardCriteria("tree1000");
@@ -196,6 +193,7 @@ public class QuestEvents implements Listener {
 		if (trees+1 > 4999) {
 			NamespacedKey key2 = new NamespacedKey(plugin, "juggerjack");
 			Advancement a2 = Bukkit.getAdvancement(key2);
+			Methods.isProgNull(a2);
 			AdvancementProgress prog2 = p.getAdvancementProgress(a2); 
 			if (!prog2.isDone())
 				prog.awardCriteria("tree5000");

@@ -10,7 +10,7 @@ import xyz.wisecraft.autoroles.Main;
 
 public class DataMethods {
 
-	private static Main plugin = Main.getPlugin(Main.class);
+	private static final Main plugin = Main.getPlugin(Main.class);
 	
 	
 	public static void  infopPut (UUID UUID, Object[] data) {
@@ -29,12 +29,8 @@ public class DataMethods {
 					data.setDiaBroke(DiaBroke);
 				
 			}
-			/**
-			 * Increase block broken count
-			 * 
-			 */
-			 
-			int BlocksBroke = 1 + data.getBlocksBroke();
+
+		int BlocksBroke = 1 + data.getBlocksBroke();
 			
 			data.setBlocksBroke(BlocksBroke);
 			
@@ -97,19 +93,17 @@ public class DataMethods {
 		int Time = data.getTime();
 		int trees = data.getTrees();
 		String oldtimer = data.getOldtimer();
-		Object[] object = new Object[] {name, BlocksBroke, BlocksPlace, DiaBroke, Time, trees, oldtimer};
-		return object;}
+			return new Object[] {name, BlocksBroke, BlocksPlace, DiaBroke, Time, trees, oldtimer};}
 		
 		public static Infop reconvert(Object[] data) {
 		// Take individuel data and assemble an Infop
 		String name = (String) data[0]; 
-		int BlocksBroke = ((Integer) data[1]).intValue();
-		int BlocksPlace = ((Integer) data[2]).intValue();
-		int DiaBroke = ((Integer) data[3]).intValue();
-		int Time = ((Integer) data[4]).intValue();
-		int trees = ((Integer) data[5]).intValue();
-		String oldtimer = (String) data[6]; 
-		Infop infop = new Infop(name, BlocksBroke, BlocksPlace, DiaBroke, Time, trees, oldtimer);
-		return infop;}
+		int BlocksBroke = (Integer) data[1];
+		int BlocksPlace = (Integer) data[2];
+		int DiaBroke = (Integer) data[3];
+		int Time = (Integer) data[4];
+		int trees = (Integer) data[5];
+		String oldtimer = (String) data[6];
+			return new Infop(name, BlocksBroke, BlocksPlace, DiaBroke, Time, trees, oldtimer);}
 		
 }

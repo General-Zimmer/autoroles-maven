@@ -62,7 +62,7 @@ public class joined extends BukkitRunnable {
 			    	 plugin.console.sendMessage("Saved as " + uuid + ".yml");
 			    	 
 			    	 //Change the template's default name into the Player's current name
-			    	 FileConfiguration config = Playerdata.getConfig(file, uuid);
+			    	 FileConfiguration config = Playerdata.getConfig(uuid);
 			    	 config.set("Name", name);
 			    	 
 					} catch (IOException e) {
@@ -75,7 +75,7 @@ public class joined extends BukkitRunnable {
 		Main.timers.put(UUID, new Timers(0, 0));
 
 		// Check if the name in the config is the same as the player's current name, if not, correct it. 
-		FileConfiguration config = Playerdata.getConfig(file, uuid); 	
+		FileConfiguration config = Playerdata.getConfig(uuid);
 		if (!config.getString("Name").equals(name)) {
     		config.set("Name", name);
 		}

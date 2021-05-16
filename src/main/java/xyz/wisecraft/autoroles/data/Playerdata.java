@@ -1,33 +1,30 @@
 package xyz.wisecraft.autoroles.data;
 
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import xyz.wisecraft.autoroles.Main;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import xyz.wisecraft.autoroles.Main;
 
 public class Playerdata {
 
-	private static Main plugin = Main.getPlugin(Main.class);
-	
-	static File file = null;
+	private static final Main plugin = Main.getPlugin(Main.class);
+
 	static FileConfiguration configuration = null;
-	static OfflinePlayer player = null;
 
 
 	/**
 	* get the config from file
 	* @return file configuration
 	*/
-	public static FileConfiguration getConfig(File file, String uuid) {
-	    
-	    
-	    file = new File(plugin.getDataFolder() + "/Player_Data", uuid + ".yml");
+	public static FileConfiguration getConfig(String uuid) {
+
+
+		File file = new File(plugin.getDataFolder() + "/Player_Data", uuid + ".yml");
 	    configuration = YamlConfiguration.loadConfiguration(file);
 	    
 	    
@@ -40,29 +37,26 @@ public class Playerdata {
 	public static void saveConfig(File file) {
 	    try {
 	        configuration.save(file);
-	    } catch (IOException e) {
+	    } catch (IOException | NullPointerException e) {
 	        plugin.console.sendMessage("Cannot save to " + file.getName() + "due to: " + e);
-	    }
-	    catch (NullPointerException e1) {
-	    	plugin.console.sendMessage("Cannot save to " + file.getName() + "due to: " + e1);
 	    }
 	}
 
 	/**
 	* set an object to a certain path
 	*/
-	public static void set(String uuid, File file, Object[] values) {
+	public static void set(String uuid, Object[] values) {
 	    
-		FileConfiguration config = getConfig(file, uuid);
+		FileConfiguration config = getConfig(uuid);
 		
 		String[] names = {"Name", "BlocksBroke", "BlocksPlace", "DiaBroke", "Time"}; 
-    	HashMap<String, Object> data = new HashMap<String, Object>(); //LinkedHashMap an array,  
+    	HashMap<String, Object> data = new HashMap<>(); //LinkedHashMap an array,
     	data.put(names[0], values[0]); //insert data with a name,
     	data.put(names[1], values[1]);
     	data.put(names[2], values[2]);
        	data.put(names[3], values[3]);
        	data.put(names[4], values[4]);
-		data.forEach((key, value) -> config.set(key, value)); //and iterate over the LinkedHashMap while inserting the content
+		data.forEach(config::set); //and iterate over the LinkedHashMap while inserting the content
 	}
 	/**
 	 * This will write into a player's file with the content of an inputStream
@@ -92,9 +86,8 @@ public class Playerdata {
 	* @return the player's uuid file
 	*/
 	public static File getFile(String uuid) {
-	
-	        File file = new File(plugin.getDataFolder() + "/Player_Data", uuid + ".yml");
-	        return file;
+
+		return new File(plugin.getDataFolder() + "/Player_Data", uuid + ".yml");
 	    }
 
 
@@ -103,7 +96,6 @@ public class Playerdata {
 	 * @return YamlConfiguration
 	*/
 	public static YamlConfiguration loadConfig(File file) {
-	    YamlConfiguration data = YamlConfiguration.loadConfiguration(file);
-	    return data;
+		return YamlConfiguration.loadConfiguration(file);
 	}
 }

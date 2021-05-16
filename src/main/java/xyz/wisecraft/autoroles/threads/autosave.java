@@ -33,7 +33,7 @@ public class autosave extends BukkitRunnable {
     		String uuid = UUID.toString();
     		File file = Playerdata.getFile(uuid);
     		Object[] data = DataMethods.convert(entry.getValue());
-    		Playerdata.set(uuid, file, data);
+    		Playerdata.set(uuid, data);
             Playerdata.saveConfig(file);
             
     		}

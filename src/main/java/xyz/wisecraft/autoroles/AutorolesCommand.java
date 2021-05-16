@@ -21,7 +21,7 @@ import xyz.wisecraft.autoroles.threads.autosave;
 
 public class AutorolesCommand implements CommandExecutor {
 	
-	private static Main plugin = Main.getPlugin(Main.class);
+	private static final Main plugin = Main.getPlugin(Main.class);
 	
 
 	@Override

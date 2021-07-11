@@ -46,12 +46,14 @@ public class Main extends JavaPlugin{
 		this.getServer().getPluginManager().registerEvents(new QuestEvents(), this);
 		Objects.requireNonNull(this.getCommand("autoroles")).setExecutor(new AutorolesCommand());
 		Objects.requireNonNull(this.getCommand("autoroles")).setTabCompleter(new TabCompletion());
-		Main.ess = (IEssentials) Bukkit.getServer().getPluginManager().getPlugin("Essentials");
+		RegisteredServiceProvider<IEssentials> essvider = Bukkit.getServicesManager().getRegistration(IEssentials.class);
+		if (essvider != null) {
+			Main.ess = essvider.getProvider();
+		}
 		
-		
-		RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-		if (provider != null) {
-			Main.luck = provider.getProvider();
+		RegisteredServiceProvider<LuckPerms> luckvider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+		if (luckvider != null) {
+			Main.luck = luckvider.getProvider();
 		}
 
 		new BukkitRunnable() {

@@ -7,6 +7,8 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
+import net.ess3.api.IEssentials;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
@@ -16,7 +18,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import com.earth2me.essentials.IEssentials;
 
 import net.luckperms.api.LuckPerms;
 import xyz.wisecraft.autoroles.data.DataMethods;
@@ -36,9 +37,13 @@ public class Main extends JavaPlugin{
 	public static ConcurrentHashMap<UUID, Timers> timers = new ConcurrentHashMap<>();
     public ConsoleCommandSender console = getServer().getConsoleSender();
     public static LuckPerms luck;
-    public static IEssentials ess;
+    private static IEssentials ess;
     
-    
+
+	public IEssentials getEss() {
+		return ess;
+	}
+
 	//On server start
 	@Override
 	public void onEnable() {
@@ -46,14 +51,14 @@ public class Main extends JavaPlugin{
 		this.getServer().getPluginManager().registerEvents(new QuestEvents(), this);
 		Objects.requireNonNull(this.getCommand("autoroles")).setExecutor(new AutorolesCommand());
 		Objects.requireNonNull(this.getCommand("autoroles")).setTabCompleter(new TabCompletion());
-		RegisteredServiceProvider<IEssentials> essvider = Bukkit.getServicesManager().getRegistration(IEssentials.class);
-		if (essvider != null) {
-			Main.ess = essvider.getProvider();
+		IEssentials essentials = (IEssentials) Bukkit.getPluginManager().getPlugin("Essentials");
+		if (essentials != null) {
+			Main.ess = essentials;
 		}
 		
-		RegisteredServiceProvider<LuckPerms> luckvider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
-		if (luckvider != null) {
-			Main.luck = luckvider.getProvider();
+		RegisteredServiceProvider<LuckPerms> luck_provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+		if (luck_provider != null) {
+			Main.luck = luck_provider.getProvider();
 		}
 
 		new BukkitRunnable() {

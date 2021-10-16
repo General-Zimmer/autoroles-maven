@@ -91,10 +91,10 @@ public class joined extends BukkitRunnable {
 				Player p = Bukkit.getPlayer(UUID);
 				Group group = Main.luck.getGroupManager().getGroup(Main.luck.getUserManager().getUser(p.getUniqueId()).getPrimaryGroup());
 				if (group.getWeight().getAsInt() >= 2 && p.hasPlayedBefore()) {
-					NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "citizen");
+					NamespacedKey key = new NamespacedKey("wisecraft_achievements", "citizen");
 					Advancement a = Bukkit.getAdvancement(key);
 					AdvancementProgress prog = p.getAdvancementProgress(a);
-					NamespacedKey key2 = new NamespacedKey(Main.getPlugin(Main.class), "old_timer");
+					NamespacedKey key2 = new NamespacedKey("wisecraft_achievements", "old_timer");
 					Advancement a2 = Bukkit.getAdvancement(key2);
 					AdvancementProgress prog2 = p.getAdvancementProgress(a2);
 					

@@ -17,7 +17,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.songoda.ultimatetimber.events.TreeFellEvent;
 
-import me.ryanhamshire.GPFlags.event.PlayerClaimBorderEvent;
 import xyz.wisecraft.autoroles.Main;
 import xyz.wisecraft.autoroles.data.Timers;
 import xyz.wisecraft.autoroles.util.Methods;
@@ -35,7 +34,7 @@ public class QuestEvents implements Listener {
 		if (message.equalsIgnoreCase("/tpr")) {
 			
 			Player p = e.getPlayer();
-			NamespacedKey key = new NamespacedKey(plugin, "welcome_wild");
+			NamespacedKey key = new NamespacedKey("wisecraft_achievements", "welcome_wild");
 			Advancement a = Bukkit.getAdvancement(key);
 			AdvancementProgress prog = p.getAdvancementProgress(a);
 			if (!prog.isDone())
@@ -45,7 +44,7 @@ public class QuestEvents implements Listener {
 		else if (message.equalsIgnoreCase("/spawn")) {
 					
 			Player p = e.getPlayer();
-			NamespacedKey key = new NamespacedKey(plugin, "spawn");
+			NamespacedKey key = new NamespacedKey("wisecraft_achievements", "spawn");
 			Advancement a = Bukkit.getAdvancement(key);
 			AdvancementProgress prog = p.getAdvancementProgress(a);
 				if (!prog.isDone())
@@ -59,7 +58,7 @@ public class QuestEvents implements Listener {
 		Timers times = timers.get(p.getUniqueId());
 
 		if (times.getFly() > 0 & e.getDeathMessage().equalsIgnoreCase(p.getName() + " fell from a high place")) {
-			NamespacedKey key = new NamespacedKey(plugin, "flying_accident");
+			NamespacedKey key = new NamespacedKey("wisecraft_achievements", "flying_accident");
 			Advancement a = Bukkit.getAdvancement(key);
 			AdvancementProgress prog = p.getAdvancementProgress(a); 
 			
@@ -68,7 +67,7 @@ public class QuestEvents implements Listener {
 			prog.awardCriteria("deadfall");
 		}
 		else if (e.getDeathMessage().equalsIgnoreCase(p.getName() + " experienced kinetic energy") ) {
-			NamespacedKey key = new NamespacedKey(plugin, "accident_flying");
+			NamespacedKey key = new NamespacedKey("wisecraft_achievements", "accident_flying");
 			Advancement a = Bukkit.getAdvancement(key);
 			AdvancementProgress prog = p.getAdvancementProgress(a); 
 			
@@ -77,7 +76,7 @@ public class QuestEvents implements Listener {
 			prog.awardCriteria("wall");
 		}
 		else if (times.getTree() > 0 & e.getDeathMessage().equalsIgnoreCase(p.getName() + " died")) {
-			NamespacedKey key = new NamespacedKey(plugin, "move");
+			NamespacedKey key = new NamespacedKey("wisecraft_achievements", "move");
 			Advancement a = Bukkit.getAdvancement(key);
 			AdvancementProgress prog = p.getAdvancementProgress(a);
 
@@ -123,7 +122,7 @@ public class QuestEvents implements Listener {
 			new BukkitRunnable() {
 				public void run() {
 					//Citizen
-					NamespacedKey citKey = new NamespacedKey(Main.getPlugin(Main.class), "citizen");
+					NamespacedKey citKey = new NamespacedKey("wisecraft_achievements", "citizen");
 					Advancement citA = Bukkit.getAdvancement(citKey);
 					String citizen = citA.getKey().getKey();
 					String event = e.getAdvancement().getKey().getKey();
@@ -133,7 +132,7 @@ public class QuestEvents implements Listener {
 					
 					
 					//Iron stash
-					NamespacedKey ironKey = new NamespacedKey(Main.getPlugin(Main.class), "hidden_iron");
+					NamespacedKey ironKey = new NamespacedKey("wisecraft_achievements", "hidden_iron");
 					Advancement ironA = Bukkit.getAdvancement(ironKey);
 					String iron = ironA.getKey().getKey();
 					if (iron.equals(event)) {
@@ -151,19 +150,7 @@ public class QuestEvents implements Listener {
 				}
 			}.runTask(Main.getPlugin(Main.class));
 	}
-	
-	@EventHandler
-	public void FlyTimer(PlayerClaimBorderEvent e) {
-		Player p = e.getPlayer();
-		UUID UUID = p.getUniqueId();
-		
-		if (!timers.containsKey(UUID)) {
-			timers.put(UUID, new Timers(10, 0));
-		}
-		else {
-			timers.get(UUID).setFly(10);
-		}
-	}
+
 	
 	@EventHandler
 	public void treecounter(TreeFellEvent e) {
@@ -171,7 +158,7 @@ public class QuestEvents implements Listener {
 		UUID UUID = p.getUniqueId();
 		
 
-		NamespacedKey key = new NamespacedKey(plugin, "timber");
+		NamespacedKey key = new NamespacedKey("wisecraft_achievements", "timber");
 		Advancement a = Bukkit.getAdvancement(key);
 		AdvancementProgress prog = p.getAdvancementProgress(a);
 		if (!prog.isDone())
@@ -182,7 +169,7 @@ public class QuestEvents implements Listener {
 		plugin.infom.get(UUID).setTrees(trees+1);
 		
 		if (trees+1 > 999) {
-			NamespacedKey key2 = new NamespacedKey(plugin, "lumberjack");
+			NamespacedKey key2 = new NamespacedKey("wisecraft_achievements", "lumberjack");
 			Advancement a2 = Bukkit.getAdvancement(key2);
 			Methods.isProgNull(a2);
 			AdvancementProgress prog2 = p.getAdvancementProgress(a2); 
@@ -191,7 +178,7 @@ public class QuestEvents implements Listener {
 			
 		}
 		if (trees+1 > 4999) {
-			NamespacedKey key2 = new NamespacedKey(plugin, "juggerjack");
+			NamespacedKey key2 = new NamespacedKey("wisecraft_achievements", "juggerjack");
 			Advancement a2 = Bukkit.getAdvancement(key2);
 			Methods.isProgNull(a2);
 			AdvancementProgress prog2 = p.getAdvancementProgress(a2); 

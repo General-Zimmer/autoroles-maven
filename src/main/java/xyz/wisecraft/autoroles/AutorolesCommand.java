@@ -55,7 +55,7 @@ public class AutorolesCommand implements CommandExecutor {
 				return true;
 				
 			case "rank":
-				NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "citizen");
+				NamespacedKey key = new NamespacedKey("wisecraft_achievements", "citizen");
 				Advancement a = Bukkit.getAdvancement(key);
 				
 				

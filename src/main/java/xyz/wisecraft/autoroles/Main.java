@@ -125,7 +125,7 @@ public class Main extends JavaPlugin{
 		// Give criteria
 		new BukkitRunnable() {
 			public void run() {
-				NamespacedKey key = new NamespacedKey(Main.getPlugin(Main.class), "citizen");
+				NamespacedKey key = new NamespacedKey("wisecraft_achievements", "citizen");
 				Advancement a = Bukkit.getAdvancement(key);
 
 

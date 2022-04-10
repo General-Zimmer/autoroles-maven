@@ -32,7 +32,7 @@ import xyz.wisecraft.autoroles.threads.joined;
 
 public class Main extends JavaPlugin{
 
-	// Useful variables, the infop HashMap is current player's data. This is to store the data in RAM
+	// Useful variables, the infop HashMap is current player's data.
 	public ConcurrentHashMap<UUID, Infop> infom = new ConcurrentHashMap<>();
 	public static ConcurrentHashMap<UUID, Timers> timers = new ConcurrentHashMap<>();
     public ConsoleCommandSender console = getServer().getConsoleSender();
